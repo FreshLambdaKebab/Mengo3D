@@ -6,6 +6,9 @@ Engine::Engine()
 {
 }
 
+Engine::Engine(const Engine & other)
+{
+}
 
 Engine::~Engine()
 {
