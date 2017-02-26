@@ -157,7 +157,7 @@ void Framework::InitializeWindows(int & screenWidth, int screenHeight)
 	m_hInst = GetModuleHandle(NULL);
 
 	//give the application a name
-	m_appName = L"The fucking DirectX window";
+	m_appName = "The fucking DirectX window";
 
 	//setup the window class struct with all default settings
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;

@@ -1,7 +1,7 @@
 #ifndef _ENGINE_H
 #define _ENGINE_H
 
-#include <Windows.h>
+#include "D3DManager.h"
 
 //globals
 const bool FULL_SCREEN = false;
@@ -22,6 +22,8 @@ public:
 
 private:
 	bool Render();
+
+	D3DManager* m_d3d;
 };
 
 #endif
