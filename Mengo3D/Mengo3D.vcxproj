@@ -148,7 +148,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ColorShader.cpp" />
+    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\shaders\ColorShader.cpp" />
     <ClCompile Include="src\D3DManager.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Framework.cpp" />
@@ -156,7 +157,8 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ColorShader.h" />
+    <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\shaders\ColorShader.h" />
     <ClInclude Include="src\D3DManager.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Framework.h" />
