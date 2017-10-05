@@ -8,19 +8,5 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Engine.cpp" />
-    <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\Framework.cpp" />
-    <ClCompile Include="src\D3DManager.cpp" />
-    <ClCompile Include="src\shaders\ColorShader.cpp" />
-    <ClCompile Include="src\Model.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Engine.h" />
-    <ClInclude Include="src\Input.h" />
-    <ClInclude Include="src\Framework.h" />
-    <ClInclude Include="src\D3DManager.h" />
-    <ClInclude Include="src\shaders\ColorShader.h" />
-    <ClInclude Include="src\Model.h" />
   </ItemGroup>
 </Project>
