@@ -8,5 +8,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Framework.cpp" />
+    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="src\InputManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Framework.h" />
+    <ClInclude Include="src\Graphics.h" />
+    <ClInclude Include="src\InputManager.h" />
   </ItemGroup>
 </Project>
