@@ -1,13 +1,9 @@
 #ifndef _GRAPHICS_H
 #define _GRAPHICS_H
 
-#include <Windows.h>
-
-//globals
-const bool FULL_SCREEN = false;
-const bool VSYNC_ENABLED = true;
-const float SCREEN_DEPTH = 1000.0f;
-const float SCREEN_NEAR = 0.1f;
+#include "D3DManager.h"
+#include "Constants.h"
+#include <memory>
 
 class Graphics
 {
@@ -22,6 +18,9 @@ public:
 
 private:
 	bool Render();
+
+	//D3DManager* m_d3d;
+	std::unique_ptr<D3DManager>m_d3d;///attempting to use smart pointers instead of raw pointers
 };
 
 #endif

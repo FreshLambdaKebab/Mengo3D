@@ -219,8 +219,16 @@ void Framework::InitializeWindows(int & screenWidth, int & screenHeight)
 	}
 
 	//create the window with the settings and get the handle to it
-	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_appName, m_appName, WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_POPUP,
-		posX, posY, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, 0, 0, m_hInst, 0);
+	if (FULL_SCREEN)
+	{
+		m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_appName, m_appName, WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_POPUP,
+			posX, posY, screenWidth, screenHeight, 0, 0, m_hInst, 0);
+	}
+	else
+	{
+		m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_appName, m_appName, WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_POPUP,
+			posX, posY, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, 0, 0, m_hInst, 0);
+	}
 
 	//bring the window onto the screen and set it as the main focus
 	ShowWindow(m_hwnd, SW_SHOW);
