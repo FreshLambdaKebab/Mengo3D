@@ -1,24 +1,24 @@
 #include "Framework.h"
+#include <memory>
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,PSTR pScmdLine,int iCmdShow)
 {
-	Framework* pFramework;
+	std::unique_ptr<Framework>framework;
 	bool result;
 
 	//create the framework object
-	pFramework = new Framework();
-	if (!pFramework)
+	framework = std::make_unique<Framework>();
+	if (!framework)
 		return 0;
 
 	//init and run the framework 
-	result = pFramework->Initialize();
+	result = framework->Initialize();
 	if (result)
-		pFramework->Run();
+		framework->Run();
 
 	//shutdown and release the framework object
-	pFramework->Shutdown();
-	delete pFramework;
-	pFramework = 0;
+	framework->Shutdown();
+	framework = 0;
 
 	return 0;
 }

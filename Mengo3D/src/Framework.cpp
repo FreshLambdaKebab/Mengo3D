@@ -160,7 +160,7 @@ void Framework::InitializeWindows(int & screenWidth, int & screenHeight)
 	m_hInst = GetModuleHandle(NULL);
 
 	//give teh app a name
-	m_appName = "The fucking window title used crackwhore";
+	m_appName = "The Metric Fuck Whole";
 
 	//setup the windows class with the default settings
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;

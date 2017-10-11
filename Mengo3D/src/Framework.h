@@ -6,7 +6,7 @@
 #include <Windows.h>
 #include <memory>
 
-#include "Graphics.h"
+#include "graphics/Graphics.h"
 #include "InputManager.h"
 
 class Framework

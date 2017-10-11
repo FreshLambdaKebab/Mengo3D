@@ -1,14 +1,20 @@
-﻿  Framework.cpp
-  Generating Code...
-  Compiling...
-  main.cpp
-  Graphics.cpp
+﻿  Graphics.cpp
 c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.10.25017\include\memory(2054): warning C4316: 'D3DManager': object allocated on the heap may not be aligned 16
-  c:\users\duran_000\documents\visual studio 2017\projects\mengo3d\mengo3d\src\graphics.cpp(17): note: see reference to function template instantiation 'std::unique_ptr<D3DManager,std::default_delete<_Ty>> std::make_unique<D3DManager,>(void)' being compiled
+  c:\users\duran_000\documents\visual studio 2017\projects\mengo3d\mengo3d\src\graphics\graphics.cpp(17): note: see reference to function template instantiation 'std::unique_ptr<D3DManager,std::default_delete<_Ty>> std::make_unique<D3DManager,>(void)' being compiled
           with
           [
               _Ty=D3DManager
           ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.10.25017\include\memory(2054): warning C4316: 'Camera': object allocated on the heap may not be aligned 16
+  c:\users\duran_000\documents\visual studio 2017\projects\mengo3d\mengo3d\src\graphics\graphics.cpp(33): note: see reference to function template instantiation 'std::unique_ptr<Camera,std::default_delete<_Ty>> std::make_unique<Camera,>(void)' being compiled
+          with
+          [
+              _Ty=Camera
+          ]
+  Generating Code...
+  Compiling...
+  main.cpp
+  Framework.cpp
   Generating Code...
   Mengo3D.vcxproj -> C:\Users\duran_000\Documents\Visual Studio 2017\Projects\Mengo3D\Debug\Mengo3D.exe
   Mengo3D.vcxproj -> C:\Users\duran_000\Documents\Visual Studio 2017\Projects\Mengo3D\Debug\Mengo3D.pdb (Partial PDB)
