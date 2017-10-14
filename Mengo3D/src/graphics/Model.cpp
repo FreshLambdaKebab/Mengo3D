@@ -4,7 +4,8 @@ Model::Model() :
 	m_vertexBuffer(0),
 	m_indexBuffer(0),
 	m_vertexCount(0),
-	m_indexCount(0)
+	m_indexCount(0),
+	m_texture(nullptr)
 {
 }
 
@@ -12,12 +13,19 @@ Model::~Model()
 {
 }
 
-bool Model::Initialize(ID3D11Device * device)
+bool Model::Initialize(ID3D11Device * device,ID3D11DeviceContext* deviceContext,char* filename)
 {
 	bool result;
 
 	//initialize the vertex and index buffers
 	result = InitializeBuffers(device);
+	if (!result)
+	{
+		return false;
+	}
+
+	//load the texture for this model
+	result = LoadTexture(device, deviceContext, filename);
 	if (!result)
 	{
 		return false;
@@ -30,6 +38,9 @@ void Model::Shutdown()
 {
 	//shutdown the vertex and idnex buffers
 	ShutdownBuffers();
+
+	//release the model texture
+	ReleaseTexture();
 }
 
 void Model::Render(ID3D11DeviceContext * deviceContext)
@@ -41,6 +52,11 @@ void Model::Render(ID3D11DeviceContext * deviceContext)
 int Model::GetIndexCount() const
 {
 	return m_indexCount;
+}
+
+ID3D11ShaderResourceView * Model::GetTexture() const
+{
+	return m_texture->GetTexture();
 }
 
 bool Model::InitializeBuffers(ID3D11Device * device)
@@ -73,13 +89,13 @@ bool Model::InitializeBuffers(ID3D11Device * device)
 
 	//load the vertex array with data
 	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
-	vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[0].texture = XMFLOAT2(0.0f, 1.0f);
 
 	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);  // Top middle.
-	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[1].texture = XMFLOAT2(0.5f, 0.0f);
 
 	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
-	vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].texture = XMFLOAT2(1.0f, 1.0f);
 
 	//load the index array with data
 	indices[0] = 0;  // Bottom left.
@@ -169,4 +185,35 @@ void Model::RenderBuffers(ID3D11DeviceContext * deviceContext)
 
 	//set the primitive type that should be rendered from the vertex buffer, triangles for our sake
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+bool Model::LoadTexture(ID3D11Device * device, ID3D11DeviceContext * deviceContext, char * filename)
+{
+	bool result;
+
+	//create the texture object
+	m_texture = std::make_shared<Texture>();
+	if (!m_texture)
+	{
+		return false;
+	}
+
+	//initialize the texture object
+	result = m_texture->Initialize(device, deviceContext, filename);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void Model::ReleaseTexture()
+{
+	//release the texture object
+	if (m_texture)
+	{
+		m_texture->Shutdown();
+		m_texture = 0;
+	}
 }

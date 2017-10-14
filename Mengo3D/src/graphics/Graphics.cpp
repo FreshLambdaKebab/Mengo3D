@@ -1,7 +1,10 @@
 #include "Graphics.h"
 
 Graphics::Graphics() :
-	m_d3d(nullptr)
+	m_d3d(nullptr),
+	m_camera(nullptr),
+	m_model(nullptr),
+	m_textureShader(nullptr)
 {
 }
 
@@ -46,25 +49,25 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//initialize the model object
-	result = m_model->Initialize(m_d3d->GetDevice());
+	result = m_model->Initialize(m_d3d->GetDevice(),m_d3d->GetDeviceContext(),"res/textures/stone01.tga");
 	if (!result)
 	{
 		MessageBox(hwnd, "could not initailze the model object", "Error", MB_OK);
 		return false;
 	}
 
-	//create the color shader object
-	m_colorShader = std::make_shared<ColorShader>();
-	if (!m_colorShader)
+	//create the texture shader object
+	m_textureShader = std::make_shared<TextureShader>();
+	if (!m_textureShader)
 	{
 		return false;
 	}
 
 	//initialize the color shader object
-	result = m_colorShader->Initialize(m_d3d->GetDevice(), hwnd);
+	result = m_textureShader->Initialize(m_d3d->GetDevice(), hwnd);
 	if (!result)
 	{
-		MessageBox(hwnd, "could not initailze the color shader object", "Error", MB_OK);
+		MessageBox(hwnd, "could not initailze the texture shader object", "Error", MB_OK);
 		return false;
 	}
 
@@ -81,11 +84,11 @@ void Graphics::Shutdown()
 		m_d3d = nullptr;
 	}
 
-	//release the color shader object
-	if (m_colorShader)
+	//release the texture shader object
+	if (m_textureShader)
 	{
-		m_colorShader->Shutdown();
-		m_colorShader = 0;
+		m_textureShader->Shutdown();
+		m_textureShader = 0;
 	}
 
 	//release the model object
@@ -137,7 +140,8 @@ bool Graphics::Render()
 	m_model->Render(m_d3d->GetDeviceContext());
 
 	//render the model using the color shader
-	result = m_colorShader->Render(m_d3d->GetDeviceContext(), m_model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	result = m_textureShader->Render(m_d3d->GetDeviceContext(), m_model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+		m_model->GetTexture());
 
 	//present the rendering to the screen
 	m_d3d->EndScene();

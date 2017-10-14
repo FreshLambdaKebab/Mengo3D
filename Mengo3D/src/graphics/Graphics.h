@@ -5,7 +5,7 @@
 #include "../Constants.h"
 #include "../Camera.h"
 #include "Model.h"
-#include "ColorShader.h"
+#include "TextureShader.h"
 #include <memory>
 
 class Graphics
@@ -26,7 +26,7 @@ private:
 	std::unique_ptr<D3DManager>m_d3d;///attempting to use smart pointers instead of raw pointers
 	std::unique_ptr<Camera>m_camera;
 	std::shared_ptr<Model>m_model;
-	std::shared_ptr<ColorShader>m_colorShader;
+	std::shared_ptr<TextureShader>m_textureShader;
 };
 
 #endif

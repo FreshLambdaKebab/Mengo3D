@@ -15,6 +15,8 @@
     <ClCompile Include="src\graphics\Graphics.cpp" />
     <ClCompile Include="src\graphics\D3DManager.cpp" />
     <ClCompile Include="src\graphics\ColorShader.cpp" />
+    <ClCompile Include="src\graphics\TextureShader.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework.h" />
@@ -25,5 +27,7 @@
     <ClInclude Include="src\graphics\Graphics.h" />
     <ClInclude Include="src\graphics\D3DManager.h" />
     <ClInclude Include="src\graphics\ColorShader.h" />
+    <ClInclude Include="src\graphics\TextureShader.h" />
+    <ClInclude Include="src\graphics\Texture.h" />
   </ItemGroup>
 </Project>
