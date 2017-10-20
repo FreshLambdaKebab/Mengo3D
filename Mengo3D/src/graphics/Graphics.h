@@ -5,7 +5,8 @@
 #include "../Constants.h"
 #include "../Camera.h"
 #include "Model.h"
-#include "TextureShader.h"
+#include "LightShader.h"
+#include "Light.h"
 #include <memory>
 
 class Graphics
@@ -20,13 +21,13 @@ public:
 	bool Update();
 
 private:
-	bool Render();
+	bool Render(float rotation);
 
-	//D3DManager* m_d3d;
 	std::unique_ptr<D3DManager>m_d3d;///attempting to use smart pointers instead of raw pointers
 	std::unique_ptr<Camera>m_camera;
 	std::shared_ptr<Model>m_model;
-	std::shared_ptr<TextureShader>m_textureShader;
+	std::shared_ptr<LightShader>m_lightShader;
+	std::unique_ptr<Light>m_light;
 };
 
 #endif

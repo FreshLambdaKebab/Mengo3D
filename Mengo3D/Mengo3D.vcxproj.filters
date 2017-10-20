@@ -17,6 +17,8 @@
     <ClCompile Include="src\graphics\ColorShader.cpp" />
     <ClCompile Include="src\graphics\TextureShader.cpp" />
     <ClCompile Include="src\graphics\Texture.cpp" />
+    <ClCompile Include="src\graphics\LightShader.cpp" />
+    <ClCompile Include="src\graphics\Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework.h" />
@@ -29,5 +31,7 @@
     <ClInclude Include="src\graphics\ColorShader.h" />
     <ClInclude Include="src\graphics\TextureShader.h" />
     <ClInclude Include="src\graphics\Texture.h" />
+    <ClInclude Include="src\graphics\LightShader.h" />
+    <ClInclude Include="src\graphics\Light.h" />
   </ItemGroup>
 </Project>

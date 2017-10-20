@@ -4,7 +4,8 @@ Graphics::Graphics() :
 	m_d3d(nullptr),
 	m_camera(nullptr),
 	m_model(nullptr),
-	m_textureShader(nullptr)
+	m_lightShader(nullptr),
+	m_light(nullptr)
 {
 }
 
@@ -18,7 +19,6 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 	//create the d3d object
 	m_d3d = std::make_unique<D3DManager>();
-	//m_d3d = new D3DManager();
 	if (!m_d3d)
 	{
 		return false;
@@ -28,7 +28,7 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	result = m_d3d->Initialize(screenWidth, screenHeight, VSYNC_ENABLED, hwnd, FULL_SCREEN, SCREEN_DEPTH, SCREEN_NEAR);
 	if (!result)
 	{
-		MessageBox(hwnd, "could not initialize d3d11", "error!", MB_OK);
+		MessageBox(hwnd, "could not fucking initialize d3d11", "error!", MB_OK);
 		return false;
 	}
 
@@ -39,7 +39,7 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 	//set the initial position of the camera
-	m_camera->SetPosition(0.0f, 0.0f, -5.0f);
+	m_camera->SetPosition(0.0f, 0.0f, -4.0f);
 
 	//create the model object
 	m_model = std::make_shared<Model>();
@@ -57,19 +57,30 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//create the texture shader object
-	m_textureShader = std::make_shared<TextureShader>();
-	if (!m_textureShader)
+	m_lightShader = std::make_shared<LightShader>();
+	if (!m_lightShader)
 	{
 		return false;
 	}
 
 	//initialize the color shader object
-	result = m_textureShader->Initialize(m_d3d->GetDevice(), hwnd);
+	result = m_lightShader->Initialize(m_d3d->GetDevice(), hwnd);
 	if (!result)
 	{
-		MessageBox(hwnd, "could not initailze the texture shader object", "Error", MB_OK);
+		MessageBox(hwnd, "could not initailze the light shader object", "Error", MB_OK);
 		return false;
 	}
+
+	//create the light object
+	m_light = std::make_unique<Light>();
+	if (!m_light)
+	{
+		return false;
+	}
+
+	//init the light object
+	m_light->SetDiffuseColor(0.0f, 1.0f, 0.0f, 1.0f);
+	m_light->SetDirection(0.0f, 0.0f, 1.0f);
 
 	return true;
 }
@@ -85,10 +96,16 @@ void Graphics::Shutdown()
 	}
 
 	//release the texture shader object
-	if (m_textureShader)
+	if (m_lightShader)
 	{
-		m_textureShader->Shutdown();
-		m_textureShader = 0;
+		m_lightShader->Shutdown();
+		//delete m_lightShader;
+		m_lightShader = 0;
+	}
+
+	if (m_light)
+	{
+		m_light = 0;
 	}
 
 	//release the model object
@@ -110,8 +127,17 @@ bool Graphics::Update()
 {
 	bool result;
 
+	static float rotation = 0.0f;
+
+	//update the rotation each frame
+	rotation += static_cast<float>(3.14 * 0.01f);
+	if (rotation > 360.0f)
+	{
+		rotation -= 360.0f;
+	}
+
 	//render the graphics scene
-	result = Render();
+	result = Render(rotation);
 	if (!result)
 	{
 		return false;
@@ -120,7 +146,7 @@ bool Graphics::Update()
 	return true;
 }
 
-bool Graphics::Render()
+bool Graphics::Render(float rotation)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	bool result;
@@ -136,12 +162,19 @@ bool Graphics::Render()
 	m_camera->GetViewMatrix(viewMatrix);
 	m_d3d->GetProjectionMatrix(projectionMatrix);
 
+	//rotate the world matrix by the rotation value to spin the triangle
+	worldMatrix = XMMatrixRotationY(rotation);
+
 	//put the model vertex and index buffers on the graphcis pipeline to prepare them for drawing
 	m_model->Render(m_d3d->GetDeviceContext());
 
-	//render the model using the color shader
-	result = m_textureShader->Render(m_d3d->GetDeviceContext(), m_model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
-		m_model->GetTexture());
+	//render the model using the light shader
+	result = m_lightShader->Render(m_d3d->GetDeviceContext(), m_model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+		m_model->GetTexture(),m_light->GetDirection(),m_light->GetDiffuseColor());
+	if (!result)
+	{
+		return false;
+	}
 
 	//present the rendering to the screen
 	m_d3d->EndScene();
