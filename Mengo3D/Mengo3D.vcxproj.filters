@@ -8,9 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Framework.cpp" />
-    <ClCompile Include="src\InputManager.cpp" />
-    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\graphics\Model.cpp" />
     <ClCompile Include="src\graphics\Graphics.cpp" />
     <ClCompile Include="src\graphics\D3DManager.cpp" />
@@ -19,12 +16,12 @@
     <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\graphics\LightShader.cpp" />
     <ClCompile Include="src\graphics\Light.cpp" />
+    <ClCompile Include="src\tools\Camera.cpp" />
+    <ClCompile Include="src\IO\InputManager.cpp" />
+    <ClCompile Include="src\app\Framework.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Framework.h" />
-    <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Constants.h" />
-    <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\graphics\Model.h" />
     <ClInclude Include="src\graphics\Graphics.h" />
     <ClInclude Include="src\graphics\D3DManager.h" />
@@ -33,5 +30,8 @@
     <ClInclude Include="src\graphics\Texture.h" />
     <ClInclude Include="src\graphics\LightShader.h" />
     <ClInclude Include="src\graphics\Light.h" />
+    <ClInclude Include="src\tools\Camera.h" />
+    <ClInclude Include="src\IO\InputManager.h" />
+    <ClInclude Include="src\app\Framework.h" />
   </ItemGroup>
 </Project>

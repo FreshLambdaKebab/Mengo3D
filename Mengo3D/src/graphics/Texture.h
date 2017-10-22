@@ -28,8 +28,9 @@ public:
 
 private:
 
-	//TODO:support more reading functions for differnet file types
+	//TODO:support more reading functions for differnet file types(e.g png,jpeg)
 	bool LoadTarga(const char* filename, int& width, int& height);
+	bool LoadPng(const char* filename,int& width, int& height);
 
 	unsigned char* m_targaData;
 	ID3D11Texture2D* m_texture;

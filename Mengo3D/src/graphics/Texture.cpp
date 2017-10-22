@@ -199,3 +199,9 @@ bool Texture::LoadTarga(const char * filename, int & width, int & height)
 
 	return true;
 }
+
+bool Texture::LoadPng(const char * filename, int & width, int & height)
+{
+	//TODO:load a png...
+	return false;
+}

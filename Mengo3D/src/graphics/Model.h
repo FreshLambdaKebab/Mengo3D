@@ -5,6 +5,7 @@
 #include <DirectXMath.h>
 using namespace DirectX;
 #include <memory>
+#include <fstream>
 
 #include "Texture.h"
 
@@ -19,12 +20,19 @@ private:
 		XMFLOAT3 normal;
 	};
 
+	struct ModelType
+	{
+		float x, y, z;
+		float tu, tv;
+		float nx, ny, nz;
+	};
+
 public:
 	Model();
 	Model(const Model& other){}
 	~Model();
 
-	bool Initialize(ID3D11Device * device, ID3D11DeviceContext* deviceContext, char* filename);
+	bool Initialize(ID3D11Device * device, ID3D11DeviceContext* deviceContext, char* textureFilename,char* modelFilename);
 	void Shutdown();
 	void Render(ID3D11DeviceContext* deviceContext);
 
@@ -41,9 +49,13 @@ private:
 	bool LoadTexture(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* filename);
 	void ReleaseTexture();
 
+	bool LoadModel(const char* filename);
+	void ReleaseModel();
+
 	ID3D11Buffer* m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 	std::shared_ptr<Texture>m_texture;
+	ModelType* m_model;
 
 };
 

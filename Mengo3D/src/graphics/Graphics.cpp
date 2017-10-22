@@ -49,7 +49,7 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//initialize the model object
-	result = m_model->Initialize(m_d3d->GetDevice(),m_d3d->GetDeviceContext(),"res/textures/stone01.tga");
+	result = m_model->Initialize(m_d3d->GetDevice(),m_d3d->GetDeviceContext(),"res/textures/stone01.tga","res/models/cube.txt");
 	if (!result)
 	{
 		MessageBox(hwnd, "could not initailze the model object", "Error", MB_OK);
@@ -79,7 +79,7 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//init the light object
-	m_light->SetDiffuseColor(0.0f, 1.0f, 0.0f, 1.0f);
+	m_light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
 	m_light->SetDirection(0.0f, 0.0f, 1.0f);
 
 	return true;
@@ -130,7 +130,7 @@ bool Graphics::Update()
 	static float rotation = 0.0f;
 
 	//update the rotation each frame
-	rotation += static_cast<float>(3.14 * 0.01f);
+	rotation += static_cast<float>(3.14 * 0.001f);
 	if (rotation > 360.0f)
 	{
 		rotation -= 360.0f;

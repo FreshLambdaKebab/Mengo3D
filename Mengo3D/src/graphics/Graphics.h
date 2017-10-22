@@ -3,7 +3,7 @@
 
 #include "D3DManager.h"
 #include "../Constants.h"
-#include "../Camera.h"
+#include "../tools/Camera.h"
 #include "Model.h"
 #include "LightShader.h"
 #include "Light.h"
