@@ -79,8 +79,9 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//init the light object
+	m_light->SetAmbientColor(0.15f, 0.15f, 0.15f, 1.0f);
 	m_light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
-	m_light->SetDirection(0.0f, 0.0f, 1.0f);
+	m_light->SetDirection(1.0f, 0.0f, 0.0f);
 
 	return true;
 }
@@ -130,7 +131,7 @@ bool Graphics::Update()
 	static float rotation = 0.0f;
 
 	//update the rotation each frame
-	rotation += static_cast<float>(3.14 * 0.001f);
+	rotation += static_cast<float>(3.14 * 0.007f);
 	if (rotation > 360.0f)
 	{
 		rotation -= 360.0f;
@@ -170,7 +171,7 @@ bool Graphics::Render(float rotation)
 
 	//render the model using the light shader
 	result = m_lightShader->Render(m_d3d->GetDeviceContext(), m_model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
-		m_model->GetTexture(),m_light->GetDirection(),m_light->GetDiffuseColor());
+		m_model->GetTexture(),m_light->GetDirection(),m_light->GetDiffuseColor(),m_light->GetAmbientColor());
 	if (!result)
 	{
 		return false;
