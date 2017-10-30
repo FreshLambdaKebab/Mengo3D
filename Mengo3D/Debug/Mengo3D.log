@@ -11,5 +11,6 @@ c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.1
           [
               _Ty=Camera
           ]
+c:\users\duran_000\documents\visual studio 2017\projects\mengo3d\mengo3d\src\tools\camera.h(21): warning C4172: returning address of local variable or temporary
   Mengo3D.vcxproj -> C:\Users\duran_000\Documents\Visual Studio 2017\Projects\Mengo3D\Debug\Mengo3D.exe
   Mengo3D.vcxproj -> C:\Users\duran_000\Documents\Visual Studio 2017\Projects\Mengo3D\Debug\Mengo3D.pdb (Partial PDB)

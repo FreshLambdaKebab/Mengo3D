@@ -6,6 +6,12 @@ cbuffer MatrixBuffer
 	matrix projectionMatrix;
 };
 
+cbuffer CameraBuffer
+{
+	float3 cameraPosition;
+	float padding;
+};
+
 //TYPEDEFS//
 struct VertexInputType
 {
@@ -19,11 +25,13 @@ struct PixelInputType
 	float4 position : SV_POSITION;
 	float2 tex : TEXCOORD0;
 	float3 normal : NORMAL;
+	float3 viewDirection : TEXCOORD1;
 };
 
 PixelInputType LightVertexShader(VertexInputType input)
 {
 	PixelInputType output;
+	float4 worldPosition;
 	
 	//change the position vector to be 4 units for proper matrix calculations
 	input.position.w = 1.0f;
@@ -41,6 +49,15 @@ PixelInputType LightVertexShader(VertexInputType input)
 	
 	//normalize the normal vector
 	output.normal = normalize(output.normal);
+
+	//calculate the position of the vertex in the world
+	worldPosition = mul(input.position,worldMatrix);
+
+	//determine the viewing direction based on the position of the camera and the position of the vertex in the world
+	output.viewDirection = cameraPosition.xyz - worldPosition.xyz;
+
+	//normalize the viewing direction vector
+	output.viewDirection = normalize(output.viewDirection);
 	
 	return output;
 }
